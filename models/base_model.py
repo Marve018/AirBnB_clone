@@ -5,6 +5,7 @@
 """
 from uuid import uuid4
 from datetime import datetime
+import models
 
 
 
@@ -35,4 +36,20 @@ class BaseModel:
         """
         updated_at = datetime.now()
 
+    def to_dict(self):
+        """
+            returns a dictionary containing all
+            keys/values of __dict__ of the instance
+        """
+        classDict = self.__dict__.copy()
+        classDict['updated_at'] = self.updated_at.isoformat()
+        classDict['created_at'] = self.created_at.isoformat()
+        classDict['__class__'] = self.__class__.__name__
 
+        return classDict
+    
+    def __str__(self):
+        """
+            Return the print/str representation of the BaseModel instance
+        """
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
