@@ -4,9 +4,9 @@
     instances to a JSON file and deserializes JSON file to instances
 """
 import json
-import os
+from os import path
 import models
-
+from models.base_model import BaseModel
 
 class FileStorage:
     """
@@ -43,4 +43,14 @@ class FileStorage:
                 objD[key] = value.to_dict()
             fjson.write(json.dumps(objD))
 
-    
+    def reload(self):
+        """Deserializes the JSON file to __objects"""
+        try:
+            with open(self.__file_path, 'r') as fjson:
+                data = json.load(fjson)
+                for key in data.values():
+                    cls_name = key["__class__"]
+                    del key["__class__"]
+                    self.new(eval(cls_name)(**key))
+        except FileNotFoundError:
+            return
