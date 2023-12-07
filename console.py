@@ -11,24 +11,17 @@ import shlex
 import json
 from models.base_model import BaseModel
 from models import storage
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """Representing the command interpreter"""
     prompt = '(hbnb) '
 
-    def do_create(self, line):
-        """Creates a new instance of BaseModel"""
-        if not line:
-            print("** class name missing **")
-            return
-        classes = {"BaseModel": BaseModel}
-
-        if line not in classes:
-            print("** class doesn't exist **")
-            return
-        new_instance = classes[line]()
-        new_instance.save()
-        print(new_instance.id)
+    classes = {"BaseModel": BaseModel, "Amenity": Amenity,
+               "Place": Place, "Review": Review}
 
 
     def do_show(self, line):
@@ -36,12 +29,10 @@ class HBNBCommand(cmd.Cmd):
             Prints the string representation of an
             instance based on class name and ID
         """
-        args = line.split()
+        args = shlex.split(line)
         if not line:
             print("** class name missing **")
             return
-
-        classes = {"BaseModel": BaseModel}  # Add other classes here as needed
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -61,12 +52,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """Deletes an instance based on class name and ID"""
-        args = line.split()
+        args = shlex.split(line)
         if not line:
             print("** class name missing **")
             return
-
-        classes = {"BaseModel": BaseModel}
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -89,7 +78,6 @@ class HBNBCommand(cmd.Cmd):
             Prints all string representations of
             instances based or not on class name
         """
-        classes = {"BaseModel": BaseModel}
 
         if line not in classes and line:
             print("** class doesn't exist **")
@@ -106,12 +94,10 @@ class HBNBCommand(cmd.Cmd):
             Updates an instance based on class name and
             ID by adding or updating an attribute
         """
-        args = line.split()
+        args = shlex.split(line)
         if not line:
             print("** class name missing **")
             return
-
-        classes = {"BaseModel": BaseModel}
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -172,7 +158,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Creates a new instance of BaseModel"""
-        arg = shlex.split(line)
+        args = shlex.split(line)
         if not (line):
             print("** class name missing **")
             return
