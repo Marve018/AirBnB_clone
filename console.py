@@ -6,7 +6,6 @@
 """
 
 import cmd
-from models import classes
 import shlex
 import json
 from models.base_model import BaseModel
