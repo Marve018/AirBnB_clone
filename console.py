@@ -5,6 +5,10 @@
     command interpreter
 """
 import cmd
+from models import classes
+import shlex
+import json
+
 
 class HBNBCommand(cmd.Cmd):
     """Representing the command interpreter"""
@@ -33,6 +37,23 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line):
         """Message printed when the command is unknown"""
         print("input a valid command")
+
+    def do_create(self, line):
+        """Creates a new instance of BaseModel"""
+        arg = shlex.split(line)
+        if not (line):
+            print("** class name missing **")
+            return
+
+        try:
+            exs_clss = classes[line]
+        except Exception:
+            print("** class doesn't exist **")
+            return
+        else:
+            instance = classes[line]()
+            instance.save()
+            print(instance.id)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
