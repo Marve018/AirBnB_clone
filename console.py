@@ -13,14 +13,19 @@ from models import storage
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+from models.state import State
+from models.city import City
+from models.user import User
+
+
+classes = {"BaseModel": BaseModel, "Amenity": Amenity,
+               "Place": Place, "Review": Review, "City": City,
+               "State": State, "User": User}
 
 
 class HBNBCommand(cmd.Cmd):
     """Representing the command interpreter"""
     prompt = '(hbnb) '
-
-    classes = {"BaseModel": BaseModel, "Amenity": Amenity,
-               "Place": Place, "Review": Review}
 
 
     def do_show(self, line):
@@ -32,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
-        classes = {"BaseModel": BaseModel}
+        
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -56,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
-        classes = {"BaseModel": BaseModel}
+        
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -79,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
             Prints all string representations of
             instances based or not on class name
         """
-        classes = {"BaseModel": BaseModel}
+        
 
         if line not in classes and line:
             print("** class doesn't exist **")
@@ -100,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
-        classes = {"BaseModel": BaseModel}
+        
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -164,9 +169,7 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(line)
         if not (line):
             print("** class name missing **")
-            return
-
-        classes = {"BaseModel": BaseModel}
+            return      
 
         if line not in classes:
             print("** class doesn't exist **")
