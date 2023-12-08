@@ -32,6 +32,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
+        classes = {"BaseModel": BaseModel}
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -55,6 +56,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
+        classes = {"BaseModel": BaseModel}
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -77,6 +79,7 @@ class HBNBCommand(cmd.Cmd):
             Prints all string representations of
             instances based or not on class name
         """
+        classes = {"BaseModel": BaseModel}
 
         if line not in classes and line:
             print("** class doesn't exist **")
@@ -97,6 +100,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
+        classes = {"BaseModel": BaseModel}
 
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -162,15 +166,15 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        try:
-            exs_clss = classes[line]
-        except Exception:
+        classes = {"BaseModel": BaseModel}
+
+        if line not in classes:
             print("** class doesn't exist **")
             return
-        else:
-            instance = classes[line]()
-            instance.save()
-            print(instance.id)
+
+        instance = classes[line]()
+        instance.save()
+        print(instance.id)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
