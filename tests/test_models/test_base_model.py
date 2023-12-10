@@ -3,9 +3,24 @@
 from models.base_model import BaseModel
 import unittest
 
+
 class TestBaseModel(unittest.TestCase):
     """unittests for testing the BaseModel class"""
 
+    def test_checking_for_docstring_BaseModel(self):
+        """checking for docstrings"""
+        self.assertIsNotNone(BaseModel.__doc__)
+        self.assertIsNotNone(BaseModel.__init__.__doc__)
+        self.assertIsNotNone(BaseModel.__str__.__doc__)
+        self.assertIsNotNone(BaseModel.save.__doc__)
+        self.assertIsNotNone(BaseModel.to_dict.__doc__)
+
+    def test_method_BaseModel(self):
+        """chekcing if Basemodel have methods"""
+        self.assertTrue(hasattr(BaseModel, "__init__"))
+        self.assertTrue(hasattr(BaseModel, "save"))
+        self.assertTrue(hasattr(BaseModel, "to_dict"))
+    
     def setUp(self):
         self.base_model = BaseModel()
 
