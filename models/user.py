@@ -6,6 +6,7 @@
 
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """Representing the user class and its properties
         ALL pointing to empty strings
